@@ -17,9 +17,9 @@ namespace Demo_Wpf_TheSimpleGame.Presentation
     /// <summary>
     /// Interaction logic for TheSimpleGameView.xaml
     /// </summary>
-    public partial class TheSimpleGameView : Window
+    public partial class GameView : Window
     {
-        public TheSimpleGameView()
+        public GameView()
         {
             InitializeComponent();
         }

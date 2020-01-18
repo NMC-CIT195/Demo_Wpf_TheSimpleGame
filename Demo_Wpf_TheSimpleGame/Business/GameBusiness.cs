@@ -10,16 +10,49 @@ namespace Demo_Wpf_TheSimpleGame.Business
 {
     /// <summary>
     /// business logic layer class
-    /// instatiates the view and view model and interacts with the data layer
+    /// instantiates the view and view model and interacts with the data layer
     /// </summary>
     public class GameBusiness
     {
+        Player _playerOne = new Player();
+        Player _playerTwo = new Player();
+
         public GameBusiness()
         {
-            GameView gameView = new GameView();
-            GameViewModel gameViewModel = new GameViewModel(gameView);
-
-
+            InitializeGame();
         }
+
+        private void InitializeGame()
+        {
+            (Player playerOne, Player playerTwo) players = GetPlayerInfo();
+
+            GameView gameView = new GameView();
+
+            GameViewModel gameViewModel = new GameViewModel(gameView, players);
+        }
+
+        private (Player playerOne, Player playerTwo) GetPlayerInfo()
+        {
+            (Player playerOne, Player playerTwo) players;
+
+            players.playerOne = new Player()
+            {
+                Name = "Sally",
+                Wins = 5,
+                Losses = 2,
+                Ties = 1
+            };
+
+            players.playerTwo = new Player()
+            {
+                Name = "Bill",
+                Wins = 3,
+                Losses = 7,
+                Ties = 2
+            };
+
+            return players;
+        }
+
     }
 }

@@ -68,10 +68,12 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Player.cs" />
     <Compile Include="Presentation\GameView.xaml.cs">
       <DependentUpon>GameView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Presentation\GameViewModel.cs" />
+    <Compile Include="Presentation\ObservableObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
