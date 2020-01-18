@@ -37,8 +37,6 @@ namespace Demo_Wpf_TheSimpleGame.Presentation
             }
         }
 
-
-
         public GameViewModel(GameView gameView, (Player playerOne, Player playerTwo) players)
         {
             _gameView = gameView;

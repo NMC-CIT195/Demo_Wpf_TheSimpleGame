@@ -8,6 +8,50 @@
         Title="The Simple Game" 
         Height="500" 
         Width="800">
+    <Window.Resources>
+        <Style x:Key="GameButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="FontSize" Value="60"/>
+            <Setter Property="Background" Value="Silver"/>
+            <Setter Property="Foreground" Value="MidnightBlue"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid 
+                            Width="{TemplateBinding Width}" 
+                            Height="{TemplateBinding Height}" 
+                            ClipToBounds="True">
+                            <Rectangle 
+                                x:Name="innerRectangle" 
+                                HorizontalAlignment="Stretch" 
+                                VerticalAlignment="Stretch" 
+                                Fill="{TemplateBinding Background}" 
+                                RadiusX="5" 
+                                RadiusY="5" />
+                            <!-- Present Content (text) of the button. -->
+                            <DockPanel Name="myContentPresenterDockPanel">
+                                <ContentPresenter 
+                                    x:Name="myContentPresenter" 
+                                    Margin="2" 
+                                    HorizontalAlignment="Center"
+                                    Content="{TemplateBinding  Content}" 
+                                    TextBlock.Foreground="Black" />
+                            </DockPanel>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <SolidColorBrush Color="LightSteelBlue" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -18,8 +62,33 @@
             Content="The Simple Game" 
             HorizontalAlignment="Center"
             FontSize="30"/>
-        <Grid>
-            
+        <Grid 
+            Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid
+                Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="75"/>
+                </Grid.RowDefinitions>
+                <UniformGrid
+                    Rows="3"
+                    Columns="3">
+                    <Button Tag="00" Style="{StaticResource GameButtonStyle}" Click="GameBoard_Click"/>
+                    <Button Tag="01" Style="{StaticResource GameButtonStyle}" Click="GameBoard_Click"/>
+                    <Button Tag="02" Style="{StaticResource GameButtonStyle}" Click="GameBoard_Click"/>
+                    <Button Tag="10" Style="{StaticResource GameButtonStyle}" Click="GameBoard_Click"/>
+                    <Button Tag="11" Style="{StaticResource GameButtonStyle}" Click="GameBoard_Click"/>
+                    <Button Tag="12" Style="{StaticResource GameButtonStyle}" Click="GameBoard_Click"/>
+                    <Button Tag="20" Style="{StaticResource GameButtonStyle}" Click="GameBoard_Click"/>
+                    <Button Tag="21" Style="{StaticResource GameButtonStyle}" Click="GameBoard_Click"/>
+                    <Button Tag="22" Style="{StaticResource GameButtonStyle}" Click="GameBoard_Click"/>
+                </UniformGrid>
+            </Grid>
         </Grid>
+
     </Grid>
 </Window>

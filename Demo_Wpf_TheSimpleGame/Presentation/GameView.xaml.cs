@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Demo_Wpf_TheSimpleGame.Models;
 
 namespace Demo_Wpf_TheSimpleGame.Presentation
 {
@@ -22,6 +23,14 @@ namespace Demo_Wpf_TheSimpleGame.Presentation
         public GameView()
         {
             InitializeComponent();
+        }
+
+        private void GameBoard_Click(object sender, RoutedEventArgs e)
+        {
+            Button boardPositionButton = sender as Button;
+            GameboardPosition gameboardPosition = new GameboardPosition();
+            gameboardPosition.Row = int.Parse(boardPositionButton.Tag.ToString().Substring(0, 1));
+            gameboardPosition.Column = int.Parse(boardPositionButton.Tag.ToString().Substring(1, 1));
         }
     }
 }
