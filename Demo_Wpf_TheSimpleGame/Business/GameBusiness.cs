@@ -10,7 +10,7 @@ namespace Demo_Wpf_TheSimpleGame.Business
 {
     /// <summary>
     /// business logic layer class
-    /// manages windows and interacts with the data layer
+    /// instatiates the view and view model and interacts with the data layer
     /// </summary>
     public class GameBusiness
     {
