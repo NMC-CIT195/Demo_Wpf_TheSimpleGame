@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="The Simple Game" 
         Height="500" 
-        Width="800"
+        Width="600"
         Background="AliceBlue">
     <Window.Resources>
         <Style x:Key="GameButtonStyle" TargetType="Button">
@@ -76,6 +76,8 @@
                     <RowDefinition Height="75"/>
                 </Grid.RowDefinitions>
                 <UniformGrid
+                    Width="350"
+                    Height="350"
                     Rows="3"
                     Columns="3">
                     <Button Tag="00" Style="{StaticResource GameButtonStyle}" Click="GameBoard_Click"/>
@@ -89,6 +91,57 @@
                     <Button Tag="22" Style="{StaticResource GameButtonStyle}" Click="GameBoard_Click"/>
                 </UniformGrid>
             </Grid>
+            <StackPanel
+                Grid.Column="1"
+                Orientation="Vertical"
+                Margin="10">
+                <Label 
+                    Content="{Binding PlayerOne.Name}" 
+                    HorizontalAlignment="Center" 
+                    FontSize="20"
+                    FontWeight="Bold"/>
+                <StackPanel
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+                    <Label Content="Wins: " FontSize="16"/>
+                    <TextBox Width="80" Text="{Binding PlayerOne.Wins}"  FontSize="20" />
+                </StackPanel>
+                <StackPanel
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+                    <Label Content="Losses: " FontSize="16"/>
+                    <TextBox Width="80" Text="{Binding PlayerOne.Losses}" FontSize="20" />
+                </StackPanel>
+                <StackPanel
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+                    <Label Content="Ties: " FontSize="16"/>
+                    <TextBox Width="80" Text="{Binding PlayerOne.Ties}" FontSize="20" />
+                </StackPanel>
+                <Label 
+                    Content="{Binding PlayerTwo.Name}"
+                    HorizontalAlignment="Center" 
+                    FontSize="20"
+                    FontWeight="Bold"/>
+                <StackPanel
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+                    <Label Content="Wins: " FontSize="16"/>
+                    <TextBox Width="80" Text="{Binding PlayerTwo.Wins}"  FontSize="20" />
+                </StackPanel>
+                <StackPanel
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+                    <Label Content="Losses: " FontSize="16"/>
+                    <TextBox Width="80" Text="{Binding PlayerTwo.Losses}" FontSize="20" />
+                </StackPanel>
+                <StackPanel
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+                    <Label Content="Ties: " FontSize="16"/>
+                    <TextBox Width="80" Text="{Binding PlayerTwo.Ties}" FontSize="20" />
+                </StackPanel>
+            </StackPanel>
         </Grid>
 
     </Grid>

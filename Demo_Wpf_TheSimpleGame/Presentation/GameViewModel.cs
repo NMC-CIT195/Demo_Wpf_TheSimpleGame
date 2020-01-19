@@ -7,15 +7,14 @@ using Demo_Wpf_TheSimpleGame.Models;
 
 namespace Demo_Wpf_TheSimpleGame.Presentation
 {
-    class GameViewModel : ObservableObject
+    public class GameViewModel : ObservableObject
     {
-        private GameView _gameView;
         private Gameboard _gameboard;
 
         private Player _playerOne;
         private Player _playerTwo;
 
-
+        public string Test { get; set; }
 
         public Player PlayerOne
         {
@@ -37,9 +36,8 @@ namespace Demo_Wpf_TheSimpleGame.Presentation
             }
         }
 
-        public GameViewModel(GameView gameView, (Player playerOne, Player playerTwo) players)
+        public GameViewModel((Player playerOne, Player playerTwo) players)
         {
-            _gameView = gameView;
             _playerOne = players.playerOne;
             _playerTwo = players.playerTwo;
 
@@ -50,8 +48,6 @@ namespace Demo_Wpf_TheSimpleGame.Presentation
         {
             _gameboard = new Gameboard();
             _gameboard.InitializeGameboard();
-
-            _gameView.Show();
         }
     }
 }

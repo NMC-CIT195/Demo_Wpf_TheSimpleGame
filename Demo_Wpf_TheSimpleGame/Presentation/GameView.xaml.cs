@@ -20,8 +20,10 @@ namespace Demo_Wpf_TheSimpleGame.Presentation
     /// </summary>
     public partial class GameView : Window
     {
-        public GameView()
+        GameViewModel _gameViewModel;
+        public GameView(GameViewModel gameViewModel)
         {
+            _gameViewModel = gameViewModel;
             InitializeComponent();
         }
 
@@ -31,6 +33,8 @@ namespace Demo_Wpf_TheSimpleGame.Presentation
             GameboardPosition gameboardPosition = new GameboardPosition();
             gameboardPosition.Row = int.Parse(boardPositionButton.Tag.ToString().Substring(0, 1));
             gameboardPosition.Column = int.Parse(boardPositionButton.Tag.ToString().Substring(1, 1));
+
+            
         }
     }
 }

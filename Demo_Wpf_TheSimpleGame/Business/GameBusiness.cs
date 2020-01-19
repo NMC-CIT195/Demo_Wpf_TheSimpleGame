@@ -26,9 +26,12 @@ namespace Demo_Wpf_TheSimpleGame.Business
         {
             (Player playerOne, Player playerTwo) players = GetPlayerInfo();
 
-            GameView gameView = new GameView();
+            GameViewModel gameViewModel = new GameViewModel(players);
 
-            GameViewModel gameViewModel = new GameViewModel(gameView, players);
+            GameView gameView = new GameView(gameViewModel);
+            gameView.DataContext = gameViewModel;
+            gameView.Show();
+
         }
 
         private (Player playerOne, Player playerTwo) GetPlayerInfo()
