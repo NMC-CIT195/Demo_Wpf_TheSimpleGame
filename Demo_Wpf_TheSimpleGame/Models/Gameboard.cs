@@ -4,21 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
+using Demo_Wpf_TheSimpleGame.Presentation;
 
 //using TicTacToe.ConsoleApp.Model;
 
 namespace Demo_Wpf_TheSimpleGame.Models
 {
-    public class Gameboard
+    public class Gameboard : ObservableObject
     {
         #region ENUMS
 
-        public enum PlayerPiece
-        {
-            X,
-            O,
-            None
-        }
+        public const string PLAYER_PIECE_X = "X";
+        public const string PLAYER_PIECE_O = "O";
+        public const string PLAYER_PIECE_NONE = "";
 
         public enum GameboardState
         {
@@ -36,9 +34,7 @@ namespace Demo_Wpf_TheSimpleGame.Models
 
         private const int MAX_NUM_OF_ROWS_COLUMNS = 3;
 
-        private PlayerPiece[,] _positionState;
-
-        private GameboardState _currentRoundState;
+        private string[][] _currentBoard;
 
         #endregion
 
@@ -49,24 +45,27 @@ namespace Demo_Wpf_TheSimpleGame.Models
             get { return MAX_NUM_OF_ROWS_COLUMNS; }
         }
 
-        public PlayerPiece[,] PositionState
+        public string[][] CurrentBoard
         {
-            get { return _positionState; }
-            set { _positionState = value; }
+            get { return _currentBoard; }
+            set
+            {
+                _currentBoard = value;
+                OnPropertyChanged(nameof(CurrentBoard));
+            }
         }
 
-        public GameboardState CurrentRoundState
-        {
-            get { return _currentRoundState; }
-            set { _currentRoundState = value; }
-        }
+        public GameboardState CurrentRoundState { get; set; }
         #endregion
 
         #region CONSTRUCTORS
 
         public Gameboard()
         {
-            _positionState = new PlayerPiece[MAX_NUM_OF_ROWS_COLUMNS, MAX_NUM_OF_ROWS_COLUMNS];
+            CurrentBoard = new string[3][];
+            CurrentBoard[0] = new string[3];
+            CurrentBoard[1] = new string[3];
+            CurrentBoard[2] = new string[3];
 
             InitializeGameboard();
         }
@@ -80,7 +79,7 @@ namespace Demo_Wpf_TheSimpleGame.Models
         /// </summary>
         public void InitializeGameboard()
         {
-            _currentRoundState = GameboardState.NewRound;
+            CurrentRoundState = GameboardState.NewRound;
 
             //
             // Set all PlayerPiece array values to "None"
@@ -89,7 +88,7 @@ namespace Demo_Wpf_TheSimpleGame.Models
             {
                 for (int column = 0; column < MAX_NUM_OF_ROWS_COLUMNS; column++)
                 {
-                    _positionState[row, column] = PlayerPiece.None;
+                    CurrentBoard[row][column] = PLAYER_PIECE_NONE;
                 }
             }
         }
@@ -107,7 +106,7 @@ namespace Demo_Wpf_TheSimpleGame.Models
             // Note: gameboardPosition converted to array index by subtracting 1
             //
 
-            if (_positionState[gameboardPosition.Row - 1, gameboardPosition.Column - 1] == PlayerPiece.None)
+            if (CurrentBoard[gameboardPosition.Row][gameboardPosition.Column] == PLAYER_PIECE_NONE)
             {
                 return true;
             }
@@ -122,23 +121,23 @@ namespace Demo_Wpf_TheSimpleGame.Models
         /// </summary>
         public void UpdateGameboardState()
         {
-            if (ThreeInARow(PlayerPiece.X))
+            if (ThreeInARow(PLAYER_PIECE_X))
             {
-                _currentRoundState = GameboardState.PlayerXWin;
+                CurrentRoundState = GameboardState.PlayerXWin;
             }
             //
             // A player O has won
             //
-            else if (ThreeInARow(PlayerPiece.O))
+            else if (ThreeInARow(PLAYER_PIECE_O))
             {
-                _currentRoundState = GameboardState.PlayerOWin;
+                CurrentRoundState = GameboardState.PlayerOWin;
             }
             //
             // All positions filled
             //
             else if (IsCatsGame())
             {
-                _currentRoundState = GameboardState.CatsGame;
+                CurrentRoundState = GameboardState.CatsGame;
             }
         }
         
@@ -151,7 +150,7 @@ namespace Demo_Wpf_TheSimpleGame.Models
             {
                 for (int column = 0; column < 3; column++)
                 {
-                    if (_positionState[row, column] == PlayerPiece.None)
+                    if (CurrentBoard[row][column] == PLAYER_PIECE_NONE)
                     {
                         return false;
                     }
@@ -165,16 +164,16 @@ namespace Demo_Wpf_TheSimpleGame.Models
         /// </summary>
         /// <param name="playerPieceToCheck">Player's game piece to check</param>
         /// <returns>true if a player has won</returns>
-        private bool ThreeInARow(PlayerPiece playerPieceToCheck)
+        private bool ThreeInARow(string playerPieceToCheck)
         {
             //
             // Check rows for player win
             //
             for (int row = 0; row < 3; row++)
             {
-                if (_positionState[row, 0] == playerPieceToCheck &&
-                    _positionState[row, 1] == playerPieceToCheck &&
-                    _positionState[row, 2] == playerPieceToCheck)
+                if (CurrentBoard[row][0] == playerPieceToCheck &&
+                    CurrentBoard[row][1] == playerPieceToCheck &&
+                    CurrentBoard[row][2] == playerPieceToCheck)
                 {
                     return true;
                 }
@@ -185,9 +184,9 @@ namespace Demo_Wpf_TheSimpleGame.Models
             //
             for (int column = 0; column < 3; column++)
             {
-                if (_positionState[0, column] == playerPieceToCheck &&
-                    _positionState[1, column] == playerPieceToCheck &&
-                    _positionState[2, column] == playerPieceToCheck)
+                if (CurrentBoard[0][column] == playerPieceToCheck &&
+                    CurrentBoard[1][column] == playerPieceToCheck &&
+                    CurrentBoard[2][column] == playerPieceToCheck)
                 {
                     return true;
                 }
@@ -197,13 +196,14 @@ namespace Demo_Wpf_TheSimpleGame.Models
             // Check diagonals for player win
             //
             if (
-                (_positionState[0, 0] == playerPieceToCheck &&
-                _positionState[1, 1] == playerPieceToCheck &&
-                _positionState[2, 2] == playerPieceToCheck)
+                (CurrentBoard[0][0] == playerPieceToCheck &&
+                 CurrentBoard[1][1] == playerPieceToCheck &&
+                 CurrentBoard[2][2] == playerPieceToCheck
+                 )
                 ||
-                (_positionState[0, 2] == playerPieceToCheck &&
-                _positionState[1, 1] == playerPieceToCheck &&
-                _positionState[2, 0] == playerPieceToCheck)
+                (CurrentBoard[0][2] == playerPieceToCheck &&
+                 CurrentBoard[1][1] == playerPieceToCheck &&
+                 CurrentBoard[2][0] == playerPieceToCheck)
                 )
             {
                 return true;
@@ -221,13 +221,13 @@ namespace Demo_Wpf_TheSimpleGame.Models
         /// </summary>
         /// <param name="gameboardPosition"></param>
         /// <param name="PlayerPiece"></param>
-        public void SetPlayerPiece(GameboardPosition gameboardPosition, PlayerPiece PlayerPiece)
+        public void SetPlayerPiece(GameboardPosition gameboardPosition, string PlayerPiece)
         {
             //
             // Row and column value adjusted to match array structure
             // Note: gameboardPosition converted to array index by subtracting 1
             //
-            _positionState[gameboardPosition.Row - 1, gameboardPosition.Column - 1] = PlayerPiece;
+            CurrentBoard[gameboardPosition.Row][gameboardPosition.Column] = PlayerPiece;
 
             //
             // Change game board state to next player
@@ -240,13 +240,13 @@ namespace Demo_Wpf_TheSimpleGame.Models
         /// </summary>
         private void SetNextPlayer()
         {
-            if (_currentRoundState == GameboardState.PlayerXTurn)
+            if (CurrentRoundState == GameboardState.PlayerXTurn)
             {
-                _currentRoundState = GameboardState.PlayerOTurn;
+                CurrentRoundState = GameboardState.PlayerOTurn;
             }
             else
             {
-                _currentRoundState = GameboardState.PlayerXTurn;
+                CurrentRoundState = GameboardState.PlayerXTurn;
             }
         }
 

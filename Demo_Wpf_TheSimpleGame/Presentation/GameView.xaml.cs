@@ -30,11 +30,10 @@ namespace Demo_Wpf_TheSimpleGame.Presentation
         private void GameBoard_Click(object sender, RoutedEventArgs e)
         {
             Button boardPositionButton = sender as Button;
-            GameboardPosition gameboardPosition = new GameboardPosition();
-            gameboardPosition.Row = int.Parse(boardPositionButton.Tag.ToString().Substring(0, 1));
-            gameboardPosition.Column = int.Parse(boardPositionButton.Tag.ToString().Substring(1, 1));
+            int row = int.Parse(boardPositionButton.Tag.ToString().Substring(0, 1));
+            int column = int.Parse(boardPositionButton.Tag.ToString().Substring(1, 1));
 
-            
+            _gameViewModel.PlayerMove(row, column);
         }
     }
 }

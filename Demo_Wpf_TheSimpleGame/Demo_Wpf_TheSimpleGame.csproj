@@ -60,6 +60,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Business\GameBusiness.cs" />
+    <Compile Include="Data\DataService.cs" />
     <Compile Include="Models\Gameboard.cs" />
     <Compile Include="Models\GameboardPosition.cs" />
     <Page Include="Presentation\GameView.xaml">
