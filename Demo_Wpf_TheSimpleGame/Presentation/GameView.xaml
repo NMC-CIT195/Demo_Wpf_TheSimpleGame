@@ -94,6 +94,7 @@
                 <TextBlock
                     Grid.Row="1"
                     HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
                     FontSize="16"
                     Foreground="Red"
                     Text="{Binding MessageBoxContent}"/>

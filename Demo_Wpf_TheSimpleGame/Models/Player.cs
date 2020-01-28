@@ -10,6 +10,10 @@ namespace Demo_Wpf_TheSimpleGame.Models
     public class Player : ObservableObject
     {
         private string _name;
+        private int _wins;
+        private int _Losses;
+        private int _ties;
+                              
         public string Name
         {
             get { return _name; }
@@ -19,8 +23,35 @@ namespace Demo_Wpf_TheSimpleGame.Models
                 OnPropertyChanged(nameof(Name));
             }
         }
-        public int Wins { get; set; }
-        public int Losses { get; set; }
-        public int Ties { get; set; }
+
+        public int Wins
+        {
+            get { return _wins; }
+            set
+            {
+                _wins = value;
+                OnPropertyChanged(nameof(Wins));
+            }
+        }
+
+        public int Losses
+        {
+            get { return _Losses; }
+            set
+            {
+                _Losses = value;
+                OnPropertyChanged(nameof(Losses));
+            }
+        }
+
+        public int Ties
+        {
+            get { return _ties; }
+            set
+            {
+                _ties = value;
+                OnPropertyChanged(nameof(Ties));
+            }
+        }
     }
 }

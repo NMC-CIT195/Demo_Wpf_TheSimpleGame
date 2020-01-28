@@ -99,15 +99,21 @@ namespace Demo_Wpf_TheSimpleGame.Presentation
             _gameboard.UpdateGameboardState();
             if (_gameboard.CurrentRoundState == Gameboard.GameboardState.CatsGame)
             {
-
+                PlayerO.Ties++;
+                PlayerX.Ties++;
+                MessageBoxContent = "Cat Game";
             }
             else if (_gameboard.CurrentRoundState == Gameboard.GameboardState.PlayerXWin)
             {
-
+                PlayerX.Wins++;
+                PlayerO.Losses++;
+                MessageBoxContent = "Player X Wins!";
             }
             else if (_gameboard.CurrentRoundState == Gameboard.GameboardState.PlayerOWin)
             {
-
+                PlayerO.Wins++;
+                PlayerX.Losses++;
+                MessageBoxContent = "Player O Wins!";
             }
         }
     }
