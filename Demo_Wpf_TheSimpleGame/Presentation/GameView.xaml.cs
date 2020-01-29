@@ -35,5 +35,24 @@ namespace Demo_Wpf_TheSimpleGame.Presentation
 
             _gameViewModel.PlayerMove(row, column);
         }
+
+        private void WindowButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button windowButton = sender as Button;
+
+            switch (windowButton.Name)
+            {
+                case "NewGame":
+                case "ResetGame":
+                    _gameViewModel.GameCommand(windowButton.Name);
+                    break;
+
+                case "QuitSave":
+                case "Quit":
+                    Close();
+                    _gameViewModel.GameCommand(windowButton.Name);
+                    break;
+            }
+        }
     }
 }

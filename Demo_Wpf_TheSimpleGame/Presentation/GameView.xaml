@@ -10,9 +10,52 @@
         Width="600"
         Background="AliceBlue">
     <Window.Resources>
-        <Style x:Key="GameButtonStyle" TargetType="Button">
+        <Style x:Key="GameBoardButtonStyle" TargetType="Button">
             <Setter Property="Margin" Value="10"/>
             <Setter Property="FontSize" Value="60"/>
+            <Setter Property="Background" Value="Silver"/>
+            <Setter Property="Foreground" Value="MidnightBlue"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid 
+                            Width="{TemplateBinding Width}" 
+                            Height="{TemplateBinding Height}" 
+                            ClipToBounds="True">
+                            <Rectangle 
+                                x:Name="innerRectangle" 
+                                HorizontalAlignment="Stretch" 
+                                VerticalAlignment="Stretch" 
+                                Fill="{TemplateBinding Background}" 
+                                RadiusX="5" 
+                                RadiusY="5" />
+                            <!-- Present Content (text) of the button. -->
+                            <DockPanel Name="myContentPresenterDockPanel">
+                                <ContentPresenter 
+                                    x:Name="myContentPresenter" 
+                                    Margin="2" 
+                                    HorizontalAlignment="Center"
+                                    Content="{TemplateBinding  Content}" 
+                                    TextBlock.Foreground="Black" />
+                            </DockPanel>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <SolidColorBrush Color="LightSteelBlue" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="WindowButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="16"/>
             <Setter Property="Background" Value="Silver"/>
             <Setter Property="Foreground" Value="MidnightBlue"/>
             <Setter Property="Template">
@@ -81,15 +124,15 @@
                     Height="350"
                     Rows="3"
                     Columns="3">
-                    <Button Tag="00" Content="{Binding Gameboard.CurrentBoard[0][0]}" Style="{StaticResource GameButtonStyle}" Click="GameBoard_Click"/>
-                    <Button Tag="01" Content="{Binding Gameboard.CurrentBoard[0][1]}" Style="{StaticResource GameButtonStyle}" Click="GameBoard_Click"/>
-                    <Button Tag="02" Content="{Binding Gameboard.CurrentBoard[0][2]}" Style="{StaticResource GameButtonStyle}" Click="GameBoard_Click"/>
-                    <Button Tag="10" Content="{Binding Gameboard.CurrentBoard[1][0]}" Style="{StaticResource GameButtonStyle}" Click="GameBoard_Click"/>
-                    <Button Tag="11" Content="{Binding Gameboard.CurrentBoard[1][1]}" Style="{StaticResource GameButtonStyle}" Click="GameBoard_Click"/>
-                    <Button Tag="12" Content="{Binding Gameboard.CurrentBoard[1][2]}" Style="{StaticResource GameButtonStyle}" Click="GameBoard_Click"/>
-                    <Button Tag="20" Content="{Binding Gameboard.CurrentBoard[2][0]}" Style="{StaticResource GameButtonStyle}" Click="GameBoard_Click"/>
-                    <Button Tag="21" Content="{Binding Gameboard.CurrentBoard[2][1]}" Style="{StaticResource GameButtonStyle}" Click="GameBoard_Click"/>
-                    <Button Tag="22" Content="{Binding Gameboard.CurrentBoard[2][2]}" Style="{StaticResource GameButtonStyle}" Click="GameBoard_Click"/>
+                    <Button Tag="00" Content="{Binding Gameboard.CurrentBoard[0][0]}" Style="{StaticResource GameBoardButtonStyle}" Click="GameBoard_Click"/>
+                    <Button Tag="01" Content="{Binding Gameboard.CurrentBoard[0][1]}" Style="{StaticResource GameBoardButtonStyle}" Click="GameBoard_Click"/>
+                    <Button Tag="02" Content="{Binding Gameboard.CurrentBoard[0][2]}" Style="{StaticResource GameBoardButtonStyle}" Click="GameBoard_Click"/>
+                    <Button Tag="10" Content="{Binding Gameboard.CurrentBoard[1][0]}" Style="{StaticResource GameBoardButtonStyle}" Click="GameBoard_Click"/>
+                    <Button Tag="11" Content="{Binding Gameboard.CurrentBoard[1][1]}" Style="{StaticResource GameBoardButtonStyle}" Click="GameBoard_Click"/>
+                    <Button Tag="12" Content="{Binding Gameboard.CurrentBoard[1][2]}" Style="{StaticResource GameBoardButtonStyle}" Click="GameBoard_Click"/>
+                    <Button Tag="20" Content="{Binding Gameboard.CurrentBoard[2][0]}" Style="{StaticResource GameBoardButtonStyle}" Click="GameBoard_Click"/>
+                    <Button Tag="21" Content="{Binding Gameboard.CurrentBoard[2][1]}" Style="{StaticResource GameBoardButtonStyle}" Click="GameBoard_Click"/>
+                    <Button Tag="22" Content="{Binding Gameboard.CurrentBoard[2][2]}" Style="{StaticResource GameBoardButtonStyle}" Click="GameBoard_Click"/>
                 </UniformGrid>
                 <TextBlock
                     Grid.Row="1"
@@ -165,8 +208,13 @@
                     <Label Content="Ties: " FontSize="16"/>
                     <TextBox Width="80" Text="{Binding PlayerO.Ties}" FontSize="20" />
                 </StackPanel>
+                <StackPanel>
+                    <Button x:Name="NewGame" Content="New Game" Style="{DynamicResource WindowButtonStyle}" Click="WindowButton_Click"/>
+                    <Button x:Name="ResetGame" Content="Reset Game" Style="{DynamicResource WindowButtonStyle}"/>
+                    <Button x:Name="QuitSave" Content="Quit and Save" Style="{DynamicResource WindowButtonStyle}"/>
+                    <Button x:Name="Quit" Content="Quit" Style="{DynamicResource WindowButtonStyle}"/>
+                </StackPanel>
             </StackPanel>
         </Grid>
-
     </Grid>
 </Window>

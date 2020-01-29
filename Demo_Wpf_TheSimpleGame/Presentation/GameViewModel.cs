@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Demo_Wpf_TheSimpleGame.Models;
+using Demo_Wpf_TheSimpleGame.Business;
 
 namespace Demo_Wpf_TheSimpleGame.Presentation
 {
@@ -91,6 +92,37 @@ namespace Demo_Wpf_TheSimpleGame.Presentation
                     MessageBoxContent = "Player X Moves";
                 }
                 UpdateCurrentRoundState();
+            }
+        }
+        
+        internal void GameCommand(string commandName)
+        {
+            switch (commandName)
+            {
+                case "NewGame":
+                    _gameboard.InitializeGameboard();
+                    OnPropertyChanged(nameof(Gameboard));
+
+                    _gameboard.CurrentRoundState = Gameboard.GameboardState.PlayerXTurn;
+                    break;
+
+                case "ResetGame":
+                    _gameboard.InitializeGameboard();
+                    OnPropertyChanged(nameof(Gameboard));
+
+                    _gameboard.CurrentRoundState = Gameboard.GameboardState.PlayerXTurn;
+                    break;
+
+                case "QuitSave":
+                    
+                    break;
+
+                case "Quit":
+                    
+                    break;
+
+                default:
+                    break;
             }
         }
 

@@ -15,6 +15,12 @@ namespace Demo_Wpf_TheSimpleGame.Business
     /// </summary>
     public class GameBusiness
     {
+        public enum GameStatus
+        {
+           QUIT,
+           QUIT_SAVE
+        }
+
         Player _playerOne = new Player();
         Player _playerTwo = new Player();
 
