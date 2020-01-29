@@ -31,6 +31,5 @@ namespace Demo_Wpf_TheSimpleGame.Data
 
             return players;
         }
-
     }
 }
