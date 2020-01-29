@@ -210,9 +210,9 @@
                 </StackPanel>
                 <StackPanel>
                     <Button x:Name="NewGame" Content="New Game" Style="{DynamicResource WindowButtonStyle}" Click="WindowButton_Click"/>
-                    <Button x:Name="ResetGame" Content="Reset Game" Style="{DynamicResource WindowButtonStyle}"/>
-                    <Button x:Name="QuitSave" Content="Quit and Save" Style="{DynamicResource WindowButtonStyle}"/>
-                    <Button x:Name="Quit" Content="Quit" Style="{DynamicResource WindowButtonStyle}"/>
+                    <Button x:Name="ResetGame" Content="Reset Game" Style="{DynamicResource WindowButtonStyle}" Click="WindowButton_Click"/>
+                    <Button x:Name="QuitSave" Content="Quit and Save" Style="{DynamicResource WindowButtonStyle}" Click="WindowButton_Click"/>
+                    <Button x:Name="Quit" Content="Quit" Style="{DynamicResource WindowButtonStyle}" Click="WindowButton_Click"/>
                 </StackPanel>
             </StackPanel>
         </Grid>

@@ -114,14 +114,15 @@ namespace Demo_Wpf_TheSimpleGame.Presentation
                     break;
 
                 case "QuitSave":
-                    
+                    // add code to save game info and quit
                     break;
 
                 case "Quit":
-                    
+                    // add code to quit
                     break;
 
                 default:
+                    // add code to handle exception
                     break;
             }
         }
