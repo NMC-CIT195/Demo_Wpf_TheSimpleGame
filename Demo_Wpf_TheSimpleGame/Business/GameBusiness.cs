@@ -31,10 +31,28 @@ namespace Demo_Wpf_TheSimpleGame.Business
 
         private void InitializeGame()
         {
-            (Player playerOne, Player playerTwo) players = DataService.GetPlayerInfo();
+            //
+            // instantiate the data service and read all players
+            //
+            //IDataService dataService = new DataServiceSeed();
+            IDataService dataService = new DataServiceXml();
+            List<Player> allPlayers = dataService.ReadAll();
 
-            GameViewModel gameViewModel = new GameViewModel(players);
+            //
+            // choose players for games and add to the tuple
+            //
+            Player playerOne = allPlayers.FirstOrDefault(p => p.Name == "Darth");
+            Player playerTwo = allPlayers.FirstOrDefault(p => p.Name == "Leia");
+            (Player playerOne, Player playerTwo) gamePlayers = (playerOne, playerTwo);            
 
+            //
+            // instantiate the view model
+            //
+            GameViewModel gameViewModel = new GameViewModel(gamePlayers);
+
+            //
+            // instantiate the view, set data context, and show window.
+            //
             GameView gameView = new GameView(gameViewModel);
             gameView.DataContext = gameViewModel;
             gameView.Show();

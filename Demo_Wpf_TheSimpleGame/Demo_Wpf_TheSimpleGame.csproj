@@ -60,7 +60,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Business\GameBusiness.cs" />
-    <Compile Include="Data\DataService.cs" />
+    <Compile Include="Data\DataServiceSeed.cs" />
+    <Compile Include="Data\IDataService.cs" />
+    <Compile Include="Data\DataServiceXml.cs" />
     <Compile Include="Models\Gameboard.cs" />
     <Compile Include="Models\GameboardPosition.cs" />
     <Page Include="Presentation\GameView.xaml">
@@ -101,6 +103,10 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Data\Data.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
