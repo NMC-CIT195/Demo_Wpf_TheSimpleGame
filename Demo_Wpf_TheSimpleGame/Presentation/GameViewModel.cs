@@ -10,12 +10,13 @@ namespace Demo_Wpf_TheSimpleGame.Presentation
 {
     public class GameViewModel : ObservableObject
     {
+        private GameBusiness _gameBusiness;
+
         private Gameboard _gameboard;
+        private (Player playerOne, Player playerTwo) _currentPlayers;
         private Player _playerX;
         private Player _playerO;
         private string _messageBoxContent;
-
-
 
         public Gameboard Gameboard
         {
@@ -57,16 +58,20 @@ namespace Demo_Wpf_TheSimpleGame.Presentation
             }
         }
 
-        public GameViewModel((Player playerOne, Player playerTwo) players)
+        public GameViewModel()
         {
-            _playerX = players.playerOne;
-            _playerO = players.playerTwo;
+            _gameBusiness = new GameBusiness();
 
             InitializeGame();
         }
 
         private void InitializeGame()
         {
+            _currentPlayers = _gameBusiness.GetCurrentPlayers();
+
+            _playerX = _currentPlayers.playerOne;
+            _playerO = _currentPlayers.playerTwo;
+
             _gameboard = new Gameboard();
 
             _gameboard.CurrentRoundState = Gameboard.GameboardState.PlayerXTurn;
@@ -114,7 +119,7 @@ namespace Demo_Wpf_TheSimpleGame.Presentation
                     break;
 
                 case "QuitSave":
-                    // add code to save game info and quit
+                    _gameBusiness.SaveAllPlayers();
                     break;
 
                 case "Quit":

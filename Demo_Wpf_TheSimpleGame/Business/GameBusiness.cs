@@ -21,41 +21,61 @@ namespace Demo_Wpf_TheSimpleGame.Business
            QUIT_SAVE
         }
 
-        Player _playerOne = new Player();
-        Player _playerTwo = new Player();
+        IDataService _dataService;
+
+        List<Player> _allPlayers;
+
+        Player _playerOne;
+        Player _playerTwo;
 
         public GameBusiness()
         {
+            InitializeDataService();
             InitializeGame();
         }
 
         private void InitializeGame()
         {
-            //
-            // instantiate the data service and read all players
-            //
-            //IDataService dataService = new DataServiceSeed();
-            IDataService dataService = new DataServiceXml();
-            List<Player> allPlayers = dataService.ReadAll();
+
+            _allPlayers = _dataService.ReadAll();
 
             //
             // choose players for games and add to the tuple
             //
-            Player playerOne = allPlayers.FirstOrDefault(p => p.Name == "Darth");
-            Player playerTwo = allPlayers.FirstOrDefault(p => p.Name == "Leia");
-            (Player playerOne, Player playerTwo) gamePlayers = (playerOne, playerTwo);            
+            _playerOne = _allPlayers.FirstOrDefault(p => p.Name == "Darth");
+            _playerTwo = _allPlayers.FirstOrDefault(p => p.Name == "Leia");     
+        }
 
-            //
-            // instantiate the view model
-            //
-            GameViewModel gameViewModel = new GameViewModel(gamePlayers);
+        public List<Player> GetAllPlayers()
+        {
+            return _dataService.ReadAll();
+        }
 
+        public void SaveAllPlayers()
+        {
+            _dataService.WriteAll(_allPlayers); 
+        }
+
+        public (Player playerOne, Player playerTwo) GetCurrentPlayers()
+        {
             //
-            // instantiate the view, set data context, and show window.
+            // choose players for games and add to the tuple
             //
-            GameView gameView = new GameView(gameViewModel);
-            gameView.DataContext = gameViewModel;
-            gameView.Show();
+            _playerOne = _allPlayers.FirstOrDefault(p => p.Name == "Darth");
+            _playerTwo = _allPlayers.FirstOrDefault(p => p.Name == "Leia");
+            (Player playerOne, Player playerTwo) currentPlayers = (_playerOne, _playerTwo);
+
+            return currentPlayers;
+        }
+
+        private void InitializeDataService()
+        {
+            //
+            // instantiate the data service
+            //
+            //_dataService = new DataServiceSeed();
+            //_dataService = new DataServiceXml();
+            _dataService = new DataServiceJson();
         }
     }
 }
