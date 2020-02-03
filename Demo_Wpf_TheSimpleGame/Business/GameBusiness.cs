@@ -21,17 +21,29 @@ namespace Demo_Wpf_TheSimpleGame.Business
            QUIT_SAVE
         }
 
-        IDataService _dataService;
+
 
         List<Player> _allPlayers;
 
         Player _playerOne;
         Player _playerTwo;
 
+        IDataService _dataService;
+
         public GameBusiness()
         {
             InitializeDataService();
             InitializeGame();
+        }
+
+        private void InitializeDataService()
+        {
+            //
+            // instantiate the data service
+            //
+            _dataService = new DataServiceSeed();
+            //_dataService = new DataServiceXml();
+            //_dataService = new DataServiceJson();
         }
 
         private void InitializeGame()
@@ -68,14 +80,6 @@ namespace Demo_Wpf_TheSimpleGame.Business
             return currentPlayers;
         }
 
-        private void InitializeDataService()
-        {
-            //
-            // instantiate the data service
-            //
-            //_dataService = new DataServiceSeed();
-            //_dataService = new DataServiceXml();
-            _dataService = new DataServiceJson();
-        }
+
     }
 }
