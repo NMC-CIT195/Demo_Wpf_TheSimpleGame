@@ -18,7 +18,7 @@ namespace Demo_Wpf_TheSimpleGame.Data
 
 
         /// <summary>
-        /// read the json file and load a list of character objects
+        /// read the json file and load a list of Player objects
         /// </summary>
         /// <returns>list of players</returns>
         public List<Player> ReadAll()
@@ -46,10 +46,10 @@ namespace Demo_Wpf_TheSimpleGame.Data
         /// <summary>
         /// write the current list of players to the json data file
         /// </summary>
-        /// <param name="characters">list of players</param>
-        public void WriteAll(List<Player> characters)
+        /// <param name="players">list of players</param>
+        public void WriteAll(List<Player> players)
         {
-            string jsonString = JsonConvert.SerializeObject(characters, Formatting.Indented);
+            string jsonString = JsonConvert.SerializeObject(players, Formatting.Indented);
 
             try
             {

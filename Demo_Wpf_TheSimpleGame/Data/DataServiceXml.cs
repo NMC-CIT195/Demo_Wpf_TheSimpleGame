@@ -14,12 +14,12 @@ namespace Demo_Wpf_TheSimpleGame.Data
         private string _dataFilePath;
 
         /// <summary>
-        /// read the xml file and load a list of character objects
+        /// read the xml file and load a list of Player objects
         /// </summary>
-        /// <returns>list of characters</returns>
+        /// <returns>list of players</returns>
         public List<Player> ReadAll()
         {
-            List<Player> characters = new List<Player>();
+            List<Player> players = new List<Player>();
             XmlSerializer serializer = new XmlSerializer(typeof(List<Player>), new XmlRootAttribute("Players"));
 
             try
@@ -27,7 +27,7 @@ namespace Demo_Wpf_TheSimpleGame.Data
                 StreamReader reader = new StreamReader(_dataFilePath);
                 using (reader)
                 {
-                    characters = (List<Player>)serializer.Deserialize(reader);
+                    players = (List<Player>)serializer.Deserialize(reader);
                 }
 
             }
@@ -36,14 +36,14 @@ namespace Demo_Wpf_TheSimpleGame.Data
                 throw; // all exceptions are handled in the ListForm class
             }
 
-            return characters;
+            return players;
         }
 
         /// <summary>
-        /// write the current list of characters to the xml data file
+        /// write the current list of players to the xml data file
         /// </summary>
-        /// <param name="characters">list of characters</param>
-        public void WriteAll(List<Player> characters)
+        /// <param name="players">list of players</param>
+        public void WriteAll(List<Player> players)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(List<Player>), new XmlRootAttribute("Players"));
 
@@ -52,7 +52,7 @@ namespace Demo_Wpf_TheSimpleGame.Data
                 StreamWriter writer = new StreamWriter(_dataFilePath);
                 using (writer)
                 {
-                    serializer.Serialize(writer, characters);
+                    serializer.Serialize(writer, players);
                 }
             }
             catch (Exception)
